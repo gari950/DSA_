@@ -18,6 +18,7 @@ var singleNonDuplicate = function (nums) {
 };
 */
 
+/* TC -- O(N) SC -- O(1)
 var singleNonDuplicate = function (nums) {
     let cnt = 0;
     if (nums.length < 2) return nums[0];
@@ -34,4 +35,24 @@ var singleNonDuplicate = function (nums) {
         }
     }
     return cnt;
+}*/
+
+// JavaScript
+function singleNonDuplicate(nums) {
+        const n = nums.length;
+        if (n === 1) return nums[0];
+        if (nums[0] !== nums[1]) return nums[0];
+        if (nums[n-1] !== nums[n-2]) return nums[n-1];
+
+        let low = 1, high = n - 2;
+        while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                if (nums[mid] !== nums[mid-1] && nums[mid] !== nums[mid+1]) return nums[mid];
+
+                const goRight = (mid % 2 === 0 && nums[mid] === nums[mid+1]) ||
+                                                (mid % 2 === 1 && nums[mid] === nums[mid-1]);
+                if (goRight) low = mid + 1;
+                else high = mid - 1;
+        }
+        return -1;
 }
