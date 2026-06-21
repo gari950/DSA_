@@ -10,13 +10,21 @@ var longestOnes = function (nums, k) {
         if (cnt <= k) {
             maxlen = Math.max(maxlen, r - l + 1);
         }
+        // while (cnt > k) {
+        //     if (nums[l] != 0) l++;
+        //     if (nums[l] === 0 && r - l + 1 > k) {
+        //         l++;
+        //         cnt--;
+        //     }
+        // }
         while (cnt > k) {
-            if (nums[l] != 0) l++;
-            if (nums[l] === 0 && r - l + 1 > k) {
-                l++;
-                cnt--;
-            }
+        // If the element leaving the window is a 0, reduce our zero count
+        if (nums[l] === 0) {
+            cnt--;
         }
+    // Always shrink the window from the left
+    l++;
+}
         r++;
     }
     return maxlen;
