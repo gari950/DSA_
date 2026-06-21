@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numberOfSubarrays = function (nums, k) {
+    return handlesum(nums, k) - handlesum(nums, k - 1);
+};
+handlesum = (nums, k) => {
+    let l = 0, r = 0, len = 0, cnt = 0;
+    while (r < nums.length) {
+        if (nums[r] % 2 !== 0) cnt++;
+        while (cnt > k) {
+            if (nums[l] % 2 !== 0) cnt--;
+            l++;
+        }
+        len += (r - l + 1);
+        r++;
+    }
+    return len;
+}
